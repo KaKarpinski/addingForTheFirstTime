@@ -1,0 +1,56 @@
+interface Pairs {
+  ktoKupuje: string
+  komuKupuje: string
+}
+
+const members = ['Ela i Rafał', 'Kamil i Magda', 'Oliwia i Dawid']
+
+const christmasLotteryMachine = () => {
+  const membersToLottery = cloneDeep(members)
+  const finalPairs: Pairs[] = []
+  for (let i = 0; i < members.length; i++) {
+    const randomNumber = Math.floor(Math.random() * (members.length - i))
+
+    const selectedMember = membersToLottery[randomNumber]
+    if (selectedMember !== members[i]) {
+      finalPairs.push({ ktoKupuje: members[i], komuKupuje: selectedMember })
+      membersToLottery.splice(randomNumber, 1)
+    } else {
+      i--
+    }
+  }
+  console.log(finalPairs)
+  return finalPairs
+}
+
+const ButtonWithFunc = () => (
+  <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            paddingTop: 400,
+            paddingBottom: 400,
+            gap: 10
+          }}
+        >
+          <div style={{ display: 'flex', gap: 5 }}>
+            <p style={{ color: '#d40028', fontSize: 40 }}>Christmas</p>
+            <p style={{ color: '#13cc4e', fontSize: 40 }}> lottery</p>
+          </div>
+          <ButtonS
+            style={{
+              color: '#13cc4e',
+              backgroundColor: '#d40028',
+              height: 100,
+              fontSize: 40,
+              borderRadius: 10
+            }}
+            onClick={() => christmasLotteryMachine()}
+          >
+            Spinn the wheel
+          </ButtonS>
+        </div>
+  )
